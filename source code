@@ -1,0 +1,109 @@
+// Initialize an empty contact list
+let contactList = [];
+
+// Function to add a contact
+function addContact() {
+    let name = prompt("Enter contact name: ");
+    let phone = prompt("Enter contact phone number: ");
+    let email = prompt("Enter contact email address: ");
+    let contact = { name: name, phone: phone, email: email };
+    contactList.push(contact);
+    console.log("Contact added successfully!");
+}
+
+// Function to view contacts
+function viewContacts() {
+    if (contactList.length === 0) {
+        console.log("No contacts in the list.");
+    } else {
+        contactList.forEach((contact, index) => {
+            console.log(`Contact ${index + 1}:`);
+            console.log(`Name: ${contact.name}`);
+            console.log(`Phone: ${contact.phone}`);
+            console.log(`Email: ${contact.email}`);
+            console.log();
+        });
+    }
+}
+
+// Function to edit a contact
+function editContact() {
+    if (contactList.length === 0) {
+        console.log("No contacts in the list.");
+    } else {
+        let name = prompt("Enter the name of the contact to edit: ");
+        let contact = contactList.find(c => c.name === name);
+        if (contact) {
+            contact.phone = prompt("Enter new phone number: ");
+            contact.email = prompt("Enter new email address: ");
+            console.log("Contact updated successfully!");
+        } else {
+            console.log("Contact not found.");
+        }
+    }
+}
+
+// Function to delete a contact
+function deleteContact() {
+    if (contactList.length === 0) {
+        console.log("No contacts in the list.");
+    } else {
+        let name = prompt("Enter the name of the contact to delete: ");
+        let index = contactList.findIndex(c => c.name === name);
+        if (index !== -1) {
+            contactList.splice(index, 1);
+            console.log("Contact deleted successfully!");
+        } else {
+            console.log("Contact not found.");
+        }
+    }
+}
+
+// Function to save contacts to a file
+function saveContactsToFile() {
+    let fileContent = contactList.map(contact => `${contact.name},${contact.phone},${contact.email}`).join("\n");
+    // This part is just for demonstration, as actual file handling in JavaScript would require a server or a browser's file API.
+    console.log("Contacts saved to file (not implemented in this environment).");
+}
+
+// Function to load contacts from a file
+function loadContactsFromFile() {
+    // This part is just for demonstration, as actual file handling in JavaScript would require a server or a browser's file API.
+    console.log("Contacts loaded from file (not implemented in this environment).");
+    // Example data:
+    contactList = [
+        { name: "John Doe", phone: "123-456-7890", email: "john@example.com" },
+        { name: "Jane Smith", phone: "098-765-4321", email: "jane@example.com" }
+    ];
+}
+
+// Main program function
+function main() {
+    loadContactsFromFile();
+    while (true) {
+        console.log("Contact Manager");
+        console.log("1. Add Contact");
+        console.log("2. View Contacts");
+        console.log("3. Edit Contact");
+        console.log("4. Delete Contact");
+        console.log("5. Save and Exit");
+        let choice = prompt("Enter your choice: ");
+        if (choice === "1") {
+            addContact();
+        } else if (choice === "2") {
+            viewContacts();
+        } else if (choice === "3") {
+            editContact();
+        } else if (choice === "4") {
+            deleteContact();
+        } else if (choice === "5") {
+            saveContactsToFile();
+            break;
+        } else {
+            console.log("Invalid choice. Please try again.");
+        }
+    }
+}
+
+// Run the main program
+main();
